@@ -1,57 +1,30 @@
-#==============Binary To Decimal==============
-def validate_input(binary: str) -> bool:
-    if binary == "":
-        print("input cant be empty")
-        return False
-    
-    if all(bit in "01" for bit in binary):
-        return True
-    else:
-        return False
-
-#101 = 1*2^2 + 0 *2^1 + 1*2^0 = 5
-#my function for learning
-def binary_to_dec(binary: str) -> int:
-    result = 0
-
-    for bit in binary:
-        result = result*2+int(bit)
-    return result
-
-#reference function
-# def bin2dec(binary: str) -> int:
-#     return int(binary, 2)
-
-#==============Decimal To Binary==============
-# 5 = 5/2 = 2(rem 1) 2/2 = 1(rem 0) 1/2 = 0(rem 1) | 5 = 101(reverse order of rems)
-def decimal_to_binary(decimal: int) -> str:
-    result = ""
-
-    while decimal!=0:
-        result = str(decimal%2) + result
-        decimal //= 2
-    return result
+import sys
+from converters.binary import bin_to_dec, bin_to_hex
+from converters.decimal import dec_to_bin, dec_to_hex
 
 def main() -> None:
-    binary = input("Write binary number: ")
-    print(binary)
-    if validate_input(binary): 
-        dec1 = binary_to_dec(binary)
-        #dec2 = bin2dec(binary)
-        print(f"Decimal: {dec1}")
-    else: 
-        print("Invalid binary number")
-        
-    #-------------------------------------------
-    
-    decimal = input("Write decimal number: ")
-    try: 
-        decimal = int(decimal)
-    except ValueError:
-        print("Wrong decimal format")
-    else:
-        bin = decimal_to_binary(decimal)
-        print(f"Binary: {bin}")
+    if len(sys.argv) != 3:
+        print("Invalid arguments. Write --help for instructions")
+        return
+
+    command = sys.argv[1]
+    value = sys.argv[2]
+    #print(sys.argv[0], command,value)
+
+    try:
+        if command == "bin_to_dec":
+            print(bin_to_dec(value))
+
+        elif command == "bin_to_hex":
+            print(bin_to_hex(value))
+
+        elif command == "dec_to_bin":
+            print(dec_to_bin(value))
+
+        elif command == "dec_to_hex":
+            print(dec_to_hex(value))
+    except ValueError as error:
+                print(f"Error: {error}")
 
 if __name__ == "__main__":
     main()
