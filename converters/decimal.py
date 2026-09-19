@@ -1,3 +1,5 @@
+from constants import DEC_TO_HEX
+
 #==============Decimal To Binary==============
 def validate_input(decimal: str) -> int:
     try:
@@ -19,15 +21,6 @@ def dec_to_bin(decimal: str) -> str:
 
     return result
 
-dth = {
-    10 : "A",
-    11 : "B",
-    12 : "C",
-    13 : "D",
-    14 : "E",
-    15 : "F"
-}
-
 def dec_to_hex(decimal: str) -> str:
     decimal = validate_input(decimal)
 
@@ -36,7 +29,7 @@ def dec_to_hex(decimal: str) -> str:
     while decimal != 0 :
         rem = decimal % 16
         if rem >=10:
-            result = dth[rem] + result
+            result = DEC_TO_HEX[rem] + result
         else:
             result = str(rem) + result
         decimal //= 16
