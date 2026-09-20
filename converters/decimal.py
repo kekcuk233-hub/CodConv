@@ -7,11 +7,17 @@ def validate_input(decimal: str) -> int:
     except ValueError:
          raise ValueError("Invalid dec format")
 
+    if decimal<0:
+        raise ValueError("Do not accept negative numbers")
+
     return decimal    
 
 # 5 = 5/2 = 2(rem 1) 2/2 = 1(rem 0) 1/2 = 0(rem 1) | 5 = 101(reverse order of rems)
 def dec_to_bin(decimal: str) -> str:
     decimal = validate_input(decimal)
+
+    if decimal == 0:
+        return "0"
 
     result = ""
 
@@ -23,6 +29,9 @@ def dec_to_bin(decimal: str) -> str:
 
 def dec_to_hex(decimal: str) -> str:
     decimal = validate_input(decimal)
+
+    if decimal == 0:
+        return "0"
 
     result = ""
 

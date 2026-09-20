@@ -1,27 +1,34 @@
 from constants import HEX_TO_BIN, HEX_TO_DEC
 
-def validate_input(hex: str) -> bool:
-    if not all(h in "0123456789ABCDEF" for h in hex):
+def validate_input(value: str) -> bool:
+    if not value:
+        raise ValueError("Input cant be empty")
+    
+    if not all(h in "0123456789ABCDEF" for h in value):
         raise ValueError("Invalid hex input")
 
     return True
 
-def hex_to_bin(hex: str) -> str:
-    validate_input(hex)
+def hex_to_bin(value: str) -> str:
+    value = value.upper()
+    validate_input(value)
 
     result = ""
 
-    for h in hex:
+    for h in value:
         result += HEX_TO_BIN[h]
 
-    return result
+    result = result.lstrip("0")
 
-def hex_to_dec(hex: str) ->int:
-    validate_input(hex)
+    return result or "0"
+
+def hex_to_dec(value: str) ->int:
+    value = value.upper()
+    validate_input(value)
 
     result = 0
 
-    for h in hex:
+    for h in value:
         if h in HEX_TO_DEC:
             result = result * 16 + HEX_TO_DEC[h]
         else:
