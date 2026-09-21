@@ -28,3 +28,8 @@ DEC_TO_HEX = {
 
 HEX_TO_BIN = {v:k for k,v in BIN_TO_HEX.items()}
 HEX_TO_DEC = {v:k for k,v in DEC_TO_HEX.items()}
+
+NOT_TABLE = {
+    "0" : "1",
+    "1" : "0"
+}

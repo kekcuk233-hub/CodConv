@@ -1,6 +1,7 @@
-from constants import BIN_TO_HEX
+from constants import BIN_TO_HEX, NOT_TABLE
+from converters.decimal import dec_to_bin
 
-#==============Binary To Decimal==============
+#==============Convertations==============
 def validate_input(binary: str) -> None:
     if not binary:
             raise ValueError("Input cannot be empty")
@@ -23,8 +24,6 @@ def bin_to_dec(binary: str) -> int:
 # def bin2dec(binary: str) -> int:
 #     return int(binary, 2)
 
-
-
 def bin_to_hex(binary: str) -> str:
     validate_input(binary)
 
@@ -38,3 +37,67 @@ def bin_to_hex(binary: str) -> str:
 
     return result
 
+# =========================
+# Bitwise Operations
+# =========================
+
+def AND(bin1:str, bin2:str) -> str:
+    validate_input(bin1)
+    validate_input(bin2)
+
+    # result = bin_to_dec(bin1) & bin_to_dec(bin2)
+    # print(f"Reference: {dec_to_bin(result)}")
+    # print("My realization: ", end= "")
+
+    result2 = ""
+
+    if len(bin1) > len(bin2):
+        bin1, bin2 = bin2, bin1
+
+    size_dif = len(bin2) - len(bin1)
+    
+
+    for i in range(len(bin1)):
+        if bin1[i] == "1" and bin2[i+size_dif] == "1":
+            result2 += "1"
+        else:
+            result2 += "0"
+
+    return result2.lstrip("0") or "0"
+
+def OR(bin1: str, bin2: str) -> str:
+    validate_input(bin1)
+    validate_input(bin2)
+
+    print(f"Reference Result: {dec_to_bin(bin_to_dec(bin1) | bin_to_dec(bin2))}")
+    
+    result = ""
+    
+    if len(bin1) < len(bin2):
+        bin1, bin2 = bin2, bin1
+    
+    # size_dif = len(bin1) - len(bin2)
+
+    # while size_dif != 0:
+    #     bin2 = "0" + bin2
+    #     size_dif -= 1
+
+    bin2 = bin2.zfill(len(bin1))
+    
+    for i in range(len(bin1)):
+        if bin1[i] == "0" and bin2[i] == "0":
+            result += "0"
+        else:
+            result += "1"
+    
+    return result.lstrip("0") or "0"
+
+def NOT(binary: str) -> str:
+    validate_input(binary)
+
+    result = ""
+
+    for bit in binary:
+        result += NOT_TABLE[bit]
+
+    return result
